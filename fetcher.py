@@ -35,12 +35,18 @@ class WallpaperFetcher:
         btn = Gtk.EventBox()
         btn.connect("button-press-event", self.get_preview_image, path)
 
-    def download_image(self, path):
+    def download_temp_image(self, path):
+        for file in os.listdir(self.wallpaper_folder):
+            os.system(f"rm {self.wallpaper_folder}/{file}")
+
         response = get(path, stream=True)
         file_name = path.split("/")[-1]
         self.files.append(file_name)
-        file_location = f"{self.wallpaper_folder}/temp.{file_name.split('.')[-1]}"
-        with open(file_location, "wb") as file:
+        self.file_location = f"{self.wallpaper_folder}/.temp.{file_name.split('.')[-1]}"
+        with open(self.file_location, "wb") as file:
             for chunk in response.iter_content(chunk_size=1024):
                 file.write(chunk)
-        return file_location
+        return self.file_location
+
+    def copy_to_folder(self, folder, filename):
+        os.system(f"cp {self.file_location} {folder}/{filename}")

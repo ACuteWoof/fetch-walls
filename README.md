@@ -1,2 +1,5 @@
-# fetch-walls
+# Wallpaper Fetcher.
+
+## `fetch-walls`
+
 A Python Wallpaper Fetcher Using Wallhaven And Gtk
