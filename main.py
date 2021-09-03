@@ -77,6 +77,9 @@ class App(Gtk.Window):
         self.save_btn = Gtk.Button()
         self.attach_icon("folder-saved-search", self.save_btn)
 
+        self.set_wallpaper_btn = Gtk.Button()
+        self.attach_icon("emblem-ok-symbolic", self.set_wallpaper_btn)
+
         end_items = [self.next_page_btn, self.prev_page_btn, self.save_btn]
         for item in end_items:
             self.header.pack_end(item)
@@ -90,9 +93,12 @@ class App(Gtk.Window):
         self.set_titlebar(self.header)
 
         # display last temp image
-        self.current_image_location = f"{temp_wallpaper_folder}/{os.listdir(temp_wallpaper_folder)[-1]}"
-        self.current_image = self.get_wallpaper_image(self.current_image_location)
-        self.display_wall(self.current_image)
+        try:
+            self.current_image_location = f"{temp_wallpaper_folder}/{os.listdir(temp_wallpaper_folder)[-1]}"
+            self.current_image = self.get_wallpaper_image(self.current_image_location)
+            self.display_wall(self.current_image)
+        except:
+            pass
     
         self.show_all()
 
@@ -162,13 +168,7 @@ class App(Gtk.Window):
 
     def save_wallpaper(self, *_):
         print(wallpaper_folder)
-        filenames_0 = next(os.walk(wallpaper_folder), (None, None, []))[2]
-        filenames = []
-        for i in filenames_0:
-            try:
-                filename.append(int(i))
-            except:
-                continue
+        filenames = next(os.walk(wallpaper_folder), (None, None, []))[2]
         filenames.sort()
         last_file_name = "0000"
         try:
@@ -178,9 +178,6 @@ class App(Gtk.Window):
             number_of_0s = 4 - len(filename)
             if number_of_0s >= 0:
                 filename = number_of_0s*"0" + filename
-        except Exception as e:
-            print(e)
-            filename = "0000"
         finally:
             self.wallpaper_fetcher.copy_to_folder(
                 wallpaper_folder,

@@ -50,3 +50,7 @@ class WallpaperFetcher:
 
     def copy_to_folder(self, folder, filename):
         os.system(f"cp {self.file_location} {folder}/{filename}")
+
+if __name__ == "__main__":
+    print("Not intended to be run as a script.")
+
