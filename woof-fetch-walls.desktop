@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Wallpaper Fetcher
+GenericName=GUI frontend for the wallhaven API
+Categories=Utility;
+Exec=/usr/bin/woof-change-wall
