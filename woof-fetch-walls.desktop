@@ -4,4 +4,4 @@ Type=Application
 Name=Wallpaper Fetcher
 GenericName=GUI frontend for the wallhaven API
 Categories=Utility;
-Exec=/usr/bin/fetch-walls
+Exec=/usr/bin/woof-fetch-walls
